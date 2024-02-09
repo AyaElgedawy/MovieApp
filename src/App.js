@@ -1,24 +1,40 @@
 import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
+import Login from './Pages/Login';
+import Register from './Pages/Register';
+import ToDoList from './Pages/ToDoList';
+import ListMovies from './Pages/ListMovies';
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import Navbar from './Components/Navbar';
+import MovieDetails from './Pages/MovieDetails'
+import Favourites from './Pages/Favourites';
+import { useState } from 'react';
+import { LangContext } from './Context/langContext';
 function App() {
+  const [contextLang, setContextLang] = useState("En from context")
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    <LangContext.Provider value = {{contextLang, setContextLang}}>
+
+    
+
+    <BrowserRouter>
+    <Navbar />
+      <Switch>
+        <Route exact path={"/Register"} component={Register} />
+        <Route exact path={"/Login"} component={Login} />
+        <Route exact path={"/"} component={ListMovies} />
+        <Route exact path={"/moviedetails/:id"} component={MovieDetails}  />
+
+        <Route exact path={"/Favourites"} component={Favourites} />
+      </Switch>
+    </BrowserRouter>
+    </LangContext.Provider>
     </div>
+    
+    
   );
 }
 
